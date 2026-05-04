@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-300 font-sans antialiased overflow-x-hidden;
+  }
+
+  :root {
+    /* Default / Fallback */
+    --color-primary: 0 229 255; /* #00E5FF */
+    --color-secondary: 255 179 0; /* #FFB300 */
+  }
+
+  body.theme-mercedes {
+    --color-primary: 0 229 255; /* Teal */
+    --color-secondary: 192 192 192; /* Silver */
+  }
+
+  body.theme-ferrari {
+    --color-primary: 255 40 0; /* Rosso Corsa Red */
+    --color-secondary: 255 223 0; /* Modena Yellow */
+  }
+
+  body.theme-redbull {
+    --color-primary: 204 30 74; /* RB Red */
+    --color-secondary: 255 199 44; /* Sun Yellow */
+  }
+}
+
+/* Custom Telemetry Grid Background */
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+.bg-radial-gradient {
+  background: radial-gradient(circle at center, rgb(var(--color-primary) / 0.15) 0%, transparent 70%);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
