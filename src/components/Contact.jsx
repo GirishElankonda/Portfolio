@@ -93,17 +93,71 @@ const driverNames = {
   redbull: 'Max Verstappen',
 };
 
-const Contact = () => {
-  const { primary, secondary, teamId } = useTheme();
-  const [formState, setFormState] = useState('idle');
+const RECEIVER_EMAIL = 'elamkondagirish@gmail.com';
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
-  const handleSubmit = (e) => {
+async function submitViaWeb3Forms({ name, email, message }) {
+  const response = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      name,
+      email,
+      message,
+      subject: `Pit Stop — message from ${name}`,
+      from_name: 'Portfolio Pit Stop',
+      replyto: email,
+      botcheck: '',
+    }),
+  });
+
+  const result = await response.json();
+  if (!response.ok || !result.success) {
+    throw new Error(result.message || 'Web3Forms submission failed');
+  }
+}
+
+const Contact = () => {
+  const { primary, teamId } = useTheme();
+  const [formState, setFormState] = useState('idle');
+  const [errorDetail, setErrorDetail] = useState('');
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormState('submitting');
-    setTimeout(() => {
+    setErrorDetail('');
+
+    if (!WEB3FORMS_ACCESS_KEY) {
+      setErrorDetail(
+        'Email service not configured. Get a free key at web3forms.com → copy .env.example to .env → restart npm run dev.'
+      );
+      setFormState('error');
+      setTimeout(() => {
+        setFormState('idle');
+        setErrorDetail('');
+      }, 8000);
+      return;
+    }
+
+    const form = e.target;
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+
+    try {
+      await submitViaWeb3Forms({ name, email, message });
+      form.reset();
       setFormState('success');
       setTimeout(() => setFormState('idle'), 3000);
-    }, 1500);
+    } catch (err) {
+      setErrorDetail(err.message || 'Transmission failed. Please try again.');
+      setFormState('error');
+      setTimeout(() => {
+        setFormState('idle');
+        setErrorDetail('');
+      }, 6000);
+    }
   };
 
   const driverName = driverNames[teamId] || 'George Russell';
@@ -155,6 +209,7 @@ const Contact = () => {
                 <label className="font-mono text-xs text-slate-500 uppercase tracking-wider">Driver Name</label>
                 <input
                   type="text"
+                  name="name"
                   required
                   className="w-full bg-slate-950 border border-white/10 px-4 py-3 text-white focus:outline-none transition-colors rounded-none placeholder-slate-700"
                   style={{ '--tw-ring-color': primary }}
@@ -167,6 +222,7 @@ const Contact = () => {
                 <label className="font-mono text-xs text-slate-500 uppercase tracking-wider">Comms Link (Email)</label>
                 <input
                   type="email"
+                  name="email"
                   required
                   className="w-full bg-slate-950 border border-white/10 px-4 py-3 text-white focus:outline-none transition-colors rounded-none placeholder-slate-700"
                   onFocus={e => e.target.style.borderColor = primary}
@@ -179,6 +235,7 @@ const Contact = () => {
             <div className="space-y-2">
               <label className="font-mono text-xs text-slate-500 uppercase tracking-wider">Telemetry Data (Message)</label>
               <textarea
+                name="message"
                 required
                 rows={4}
                 className="w-full bg-slate-950 border border-white/10 px-4 py-3 text-white focus:outline-none transition-colors rounded-none placeholder-slate-700 resize-none"
@@ -188,13 +245,29 @@ const Contact = () => {
               ></textarea>
             </div>
 
+            {formState === 'error' && (
+              <p className="font-mono text-xs text-red-400 uppercase tracking-wider text-center leading-relaxed">
+                {errorDetail || `Transmission failed — please try again or email ${RECEIVER_EMAIL} directly.`}
+              </p>
+            )}
+
             <button
               type="submit"
-              disabled={formState !== 'idle'}
+              disabled={formState !== 'idle' && formState !== 'error'}
               className="w-full relative font-display font-bold uppercase tracking-widest py-4 overflow-hidden rounded-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100"
               style={{
-                backgroundColor: formState === 'idle' ? primary : formState === 'success' ? '#22c55e' : '#1e293b',
-                color: formState === 'idle' ? '#050810' : formState === 'success' ? 'white' : '#64748b',
+                backgroundColor:
+                  formState === 'idle' || formState === 'error'
+                    ? primary
+                    : formState === 'success'
+                      ? '#22c55e'
+                      : '#1e293b',
+                color:
+                  formState === 'idle' || formState === 'error'
+                    ? '#050810'
+                    : formState === 'success'
+                      ? 'white'
+                      : '#64748b',
               }}
             >
               {formState === 'idle' && (
@@ -211,6 +284,11 @@ const Contact = () => {
               {formState === 'success' && (
                 <span className="flex items-center gap-2">
                   <CheckCircle2 size={18} /> Signal Received
+                </span>
+              )}
+              {formState === 'error' && (
+                <span className="flex items-center gap-2">
+                  <Send size={18} /> Retry Transmission
                 </span>
               )}
             </button>

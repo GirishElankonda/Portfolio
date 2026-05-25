@@ -22,7 +22,7 @@ const teams = [
   },
   {
     id: 'redbull',
-    name: 'Charging Bull',
+    name: 'Racing Bulls',
     themeClass: 'theme-redbull',
     primary: '#CC1E4A',
     secondary: '#FFC72C',

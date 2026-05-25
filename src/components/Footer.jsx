@@ -15,8 +15,8 @@ const Footer = () => {
         </div>
 
         <div className="flex items-center gap-6 text-slate-500 font-display uppercase tracking-widest text-xs">
-          <a href="#" className="transition-colors" onMouseEnter={e => e.currentTarget.style.color = primary} onMouseLeave={e => e.currentTarget.style.color = ''}>GitHub</a>
-          <a href="#" className="transition-colors" onMouseEnter={e => e.currentTarget.style.color = primary} onMouseLeave={e => e.currentTarget.style.color = ''}>LinkedIn</a>
+          <a href="https://github.com/GirishElankonda" target="_blank" rel="noopener noreferrer" className="transition-colors" onMouseEnter={e => e.currentTarget.style.color = primary} onMouseLeave={e => e.currentTarget.style.color = ''}>GitHub</a>
+          <a href="https://www.linkedin.com/in/girish-elankonda-1ab48a297" target="_blank" rel="noopener noreferrer" className="transition-colors" onMouseEnter={e => e.currentTarget.style.color = primary} onMouseLeave={e => e.currentTarget.style.color = ''}>LinkedIn</a>
         </div>
 
         <div className="text-slate-600 font-mono text-[10px] uppercase mt-4 md:mt-0">
