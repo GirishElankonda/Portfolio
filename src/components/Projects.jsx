@@ -10,8 +10,8 @@ const projects = [
     engine: 'Node.js / Express / Firebase',
     topSpeed: 'Location-aware',
     description: 'A full-stack travel application for local exploration. Developed using JavaScript, Firebase (Auth + Firestore), Leaflet, and OpenStreetMap to enable users to discover nearby attractions and activities.',
-    link: '#',
-    github: '#'
+    link: 'https://wander-near.netlify.app/',
+    github: 'https://github.com/GirishElankonda/wander-near'
   },
   {
     id: '02',
@@ -19,8 +19,8 @@ const projects = [
     engine: 'PHP / MySQL / JavaScript',
     topSpeed: 'Role-Based Access',
     description: 'A web-based Library Management System allowing users to securely log in, manage profiles, change passwords, and view issued books through an interactive dashboard.',
-    link: '#',
-    github: '#'
+    link: 'https://lms-role-play.gt.tc/?i=1',
+    github: 'https://github.com/GirishElankonda/Library-Managament-System'
   }
 ];
 
