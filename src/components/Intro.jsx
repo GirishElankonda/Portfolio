@@ -55,18 +55,18 @@ const Intro = ({ onComplete }) => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[100] bg-[#050810] flex flex-col items-center justify-center p-6 overflow-hidden"
+          className="fixed inset-0 z-[100] bg-[#050810] overflow-y-auto overflow-x-hidden"
         >
           {/* Animated scan line */}
           <motion.div
-            className="absolute inset-x-0 h-[2px] pointer-events-none z-10"
+            className="fixed inset-x-0 h-[2px] pointer-events-none z-10"
             style={{ background: selectedTeam ? selectedTeam.primary : '#00E5FF', opacity: 0.25 }}
             animate={{ top: ['0%', '100%'] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
           />
 
           {/* Background grid */}
-          <div className="absolute inset-0 pointer-events-none" style={{
+          <div className="fixed inset-0 pointer-events-none" style={{
             backgroundSize: '40px 40px',
             backgroundImage: `
               linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
@@ -74,22 +74,24 @@ const Intro = ({ onComplete }) => {
             `
           }} />
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-14 relative z-10"
-          >
+          <div className="min-h-full w-full flex flex-col items-center p-4 py-8 md:p-8">
+            <div className="m-auto flex flex-col items-center w-full max-w-5xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-8 md:mb-14 relative z-10"
+              >
             <p className="font-mono text-xs uppercase tracking-[0.3em] mb-4" style={{ color: selectedTeam ? selectedTeam.primary : '#00E5FF' }}>
               {selectedTeam ? `CONNECTING TO ${selectedTeam.name.toUpperCase()}...` : 'TELEMETRY INTERFACE // INITIALIZING'}
             </p>
-            <h1 className="font-['Orbitron',sans-serif] text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-2">
+            <h1 className="font-['Orbitron',sans-serif] text-3xl sm:text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-2">
               Select Your <br />
               <span style={{ color: selectedTeam ? selectedTeam.primary : 'rgba(255,255,255,0.25)' }}>Constructor</span>
             </h1>
-          </motion.div>
+              </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-5xl relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 w-full relative z-10">
             {teams.map((team, i) => {
               const isSelected = selectedTeam?.id === team.id;
               const isDimmed = selectedTeam && !isSelected;
@@ -131,9 +133,9 @@ const Intro = ({ onComplete }) => {
                     />
                   )}
 
-                  <div className="p-7 relative z-10">
+                  <div className="p-5 md:p-7 relative z-10">
                     {/* Top row */}
-                    <div className="flex items-center justify-between mb-7">
+                    <div className="flex items-center justify-between mb-5 md:mb-7">
                       <span className="font-mono text-[10px] text-slate-500 uppercase tracking-[0.2em]">
                         UNIT {String(i + 1).padStart(2, '0')}
                       </span>
@@ -164,11 +166,11 @@ const Intro = ({ onComplete }) => {
                     >
                       {team.name}
                     </h2>
-                    <p className="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-5">
+                    <p className="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-3 md:mb-5">
                       DRIVER // {team.driver}
                     </p>
 
-                    <p className="text-slate-400 text-sm leading-relaxed mb-7">
+                    <p className="text-slate-400 text-sm leading-relaxed mb-5 md:mb-7">
                       {team.description}
                     </p>
 
@@ -212,16 +214,18 @@ const Intro = ({ onComplete }) => {
                 </motion.button>
               );
             })}
-          </div>
+              </div>
+            </div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            transition={{ delay: 1 }}
-            className="absolute bottom-8 font-mono text-[10px] text-slate-600 uppercase tracking-widest"
-          >
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{ delay: 1 }}
+              className="mt-8 md:mt-12 font-mono text-[10px] text-slate-600 uppercase tracking-widest relative z-10 text-center"
+            >
             GIRISH.DEV // PORTFOLIO TELEMETRY v2.7
-          </motion.p>
+            </motion.p>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
