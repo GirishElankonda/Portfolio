@@ -128,7 +128,6 @@ const Contact = () => {
     setErrorDetail('');
 
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-    console.log("DEBUG: VITE_WEB3FORMS_ACCESS_KEY is", accessKey ? "Set" : "Undefined", accessKey);
 
     if (!accessKey) {
       setErrorDetail(
