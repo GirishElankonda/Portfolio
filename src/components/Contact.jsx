@@ -94,14 +94,13 @@ const driverNames = {
 };
 
 const RECEIVER_EMAIL = 'elamkondagirish@gmail.com';
-const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
-async function submitViaWeb3Forms({ name, email, message }) {
+async function submitViaWeb3Forms({ name, email, message, accessKey }) {
   const response = await fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({
-      access_key: WEB3FORMS_ACCESS_KEY,
+      access_key: accessKey,
       name,
       email,
       message,
@@ -128,7 +127,10 @@ const Contact = () => {
     setFormState('submitting');
     setErrorDetail('');
 
-    if (!WEB3FORMS_ACCESS_KEY) {
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    console.log("DEBUG: VITE_WEB3FORMS_ACCESS_KEY is", accessKey ? "Set" : "Undefined", accessKey);
+
+    if (!accessKey) {
       setErrorDetail(
         'Email service not configured. Get a free key at web3forms.com → copy .env.example to .env → restart npm run dev.'
       );
@@ -146,7 +148,7 @@ const Contact = () => {
     const message = form.message.value.trim();
 
     try {
-      await submitViaWeb3Forms({ name, email, message });
+      await submitViaWeb3Forms({ name, email, message, accessKey });
       form.reset();
       setFormState('success');
       setTimeout(() => setFormState('idle'), 3000);
