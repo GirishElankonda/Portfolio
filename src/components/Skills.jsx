@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../ThemeContext';
 
 const skills = [
-  { name: 'Java / Python / C', level: 90 },
-  { name: 'HTML / CSS / JS', level: 95 },
-  { name: 'Node.js / Express / PHP', level: 85 },
-  { name: 'MySQL / PostgreSQL', level: 80 },
-  { name: 'Salesforce (Apex, LWC)', level: 85 },
-  { name: 'Git / Cloud', level: 75 },
+  { name: 'Java / Python / C', level: 70 },
+  { name: 'HTML / CSS / JS', level: 70 },
+  { name: 'Node.js / Express / PHP', level: 65 },
+  { name: 'MySQL / PostgreSQL', level: 70 },
+  { name: 'Salesforce (Apex, LWC)', level: 60 },
+  { name: 'Git / Cloud', level: 70 },
 ];
 
 const SkillBar = ({ skill, index }) => {
