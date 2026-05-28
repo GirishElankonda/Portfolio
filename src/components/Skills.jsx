@@ -30,7 +30,7 @@ const SkillBar = ({ skill, index }) => {
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${skill.level}%` }}
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={{ once: true }}
           transition={{ duration: 1.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="h-full relative"
           style={{ background: `linear-gradient(to right, ${primary}60, ${primary})` }}
