@@ -11,7 +11,6 @@ const About = () => {
     { label: 'Chassis', value: 'B.Tech CSE Student' },
     { label: 'Base Location', value: 'Tirupati, India' },
     { label: 'Top Tech', value: 'Java / Node.js / React' },
-    { label: 'Experience', value: 'Salesforce Dev Intern' },
   ];
 
   return (
