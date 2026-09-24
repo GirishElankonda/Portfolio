@@ -6,21 +6,21 @@ import { useTheme } from '../ThemeContext';
 const projects = [
   {
     id: '01',
-    title: 'Wander Near',
-    engine: 'Node.js / Express / Firebase',
-    topSpeed: 'Location-aware',
-    description: 'A full-stack travel application for local exploration. Developed using JavaScript, Firebase (Auth + Firestore), Leaflet, and OpenStreetMap to enable users to discover nearby attractions and activities.',
-    link: 'https://wander-near.netlify.app/',
-    github: 'https://github.com/GirishElankonda/wander-near'
+    title: 'AI Resume Analyzer and Job Matcher',
+    engine: 'React.js / Node.js / Cohere',
+    topSpeed: 'AI Match Scoring',
+    description: 'An AI-powered application that analyzes resumes against job descriptions and generates match scores with improvement suggestions. Automated extraction of skills, experience, keywords, and missing requirements helps users optimize their resumes.',
+    link: 'https://mern-ai-resume.netlify.app/',
+    github: 'https://github.com/GirishElankonda/ai_resume_analyzer'
   },
   {
     id: '02',
-    title: 'Library Automation Platform',
-    engine: 'PHP / MySQL / JavaScript',
-    topSpeed: 'Role-Based Access',
-    description: 'A web-based Library Management System allowing users to securely log in, manage profiles, change passwords, and view issued books through an interactive dashboard.',
-    link: 'https://lms-role-play.gt.tc/?i=1',
-    github: 'https://github.com/GirishElankonda/Library-Managament-System'
+    title: 'Personal Expense Tracker',
+    engine: 'MongoDB / Express / React / Node.js',
+    topSpeed: 'JWT Auth',
+    description: 'A full-stack MERN application with a decoupled React/Vite frontend and an Express/Node.js REST API. MongoDB schema design supports complex relations for dynamic CRUD, including creating, filtering, updating, and deleting budget entries.',
+    link: 'https://personal-expense-tracker01.netlify.app/',
+    github: 'https://github.com/GirishElankonda/personal-expense-tracker'
   }
 ];
 
@@ -79,16 +79,22 @@ const ProjectCard = ({ project, index }) => {
 
         {/* Links */}
         <div className="flex items-center gap-4 pt-4 border-t border-white/10">
-          <a
-            href={project.link}
-            className="flex items-center gap-2 text-sm font-display uppercase tracking-wider text-white transition-colors"
-            onMouseEnter={e => e.currentTarget.style.color = primary}
-            onMouseLeave={e => e.currentTarget.style.color = ''}
-          >
-            <ExternalLink size={16} /> Live Demo
-          </a>
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm font-display uppercase tracking-wider text-white transition-colors"
+              onMouseEnter={e => e.currentTarget.style.color = primary}
+              onMouseLeave={e => e.currentTarget.style.color = ''}
+            >
+              <ExternalLink size={16} /> Live Demo
+            </a>
+          )}
           <a
             href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 text-sm font-display uppercase tracking-wider text-slate-400 hover:text-white transition-colors"
           >
             <Code2 size={16} /> Source
